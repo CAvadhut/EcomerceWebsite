@@ -22,7 +22,7 @@ const App = () => {
 
         {/* Private Routes */}
         <Route element={<PrivateRoute />}>
-          <Route path="/navbar" element={<Navbar/>} />
+          {/* <Route path="/navbar" element={<Navbar/>} /> */}
           <Route path="/Slider" element={<Slider />} />
           <Route path="/PageHeading" element={<PageHeading />} />
           <Route path="/featuredCategories" element={<FeaturedCategories />} />

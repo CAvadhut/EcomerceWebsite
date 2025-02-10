@@ -27,12 +27,10 @@ const LoginPage = () => {
         localStorage.setItem("token", JSON.stringify(res.data.access_token));
 
         console.log(res.data.access_token);
-        // alert("login");
         navigate("/PageHeading");
       })
       .catch((err) => {
         console.log(err);
-        // alert("failed");
       });
   };
   return (

@@ -5,20 +5,11 @@ import { AppBar, Box, Toolbar } from "@mui/material";
 
 const RootLayout = () => {
   return (
-    <Box sx={{ }}>
-      {/* ✅ AppBar wraps only the Navbar */}
+    <Box>
       <AppBar position="static">
-        <Toolbar> 
           <Navbar />
-        </Toolbar>
       </AppBar>
-
-      {/* ✅ Main Content (Flexible to push footer to bottom) */}
-      <Box component="main" sx={{ flexGrow: 1, p: 2 }}>
         <Outlet />
-      </Box>
-
-      {/* ✅ Footer stays at the bottom */}
       <Footer />
     </Box>
   );
