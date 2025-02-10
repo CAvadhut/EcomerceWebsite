@@ -12,24 +12,28 @@ import PrivateRoute from "./components/privateRoute/PrivateRoute";
 import LoginPage from "./components/loginPage/LoginPage";
 import Cart from "./components/layout/cart/Cart";
 import PopularProduct from "./components/popularProduct/PopularProduct";
-import Navbar from "./components/layout/navbar/Navbar";
 
 const App = () => {
   return (
     <Router>
       <Routes>
+        {/* Public Route */}
         <Route path="/login" element={<LoginPage />} />
 
-        {/* Private Routes */}
+        {/* Private Routes Wrapped in RootLayout */}
         <Route element={<PrivateRoute />}>
-          {/* <Route path="/navbar" element={<Navbar/>} /> */}
-          <Route path="/Slider" element={<Slider />} />
-          <Route path="/PageHeading" element={<PageHeading />} />
-          <Route path="/featuredCategories" element={<FeaturedCategories />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/PopularProduct" element={<PopularProduct />} />
+          <Route element={<RootLayout />}>
+            <Route path="/slider" element={<Slider />} />
+            <Route path="/page-heading" element={<PageHeading />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/featured-categories" element={<FeaturedCategories />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/popular-product" element={<PopularProduct />} />
+
+          </Route>
         </Route>
 
+        {/* Redirect any unknown route to login */}
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Router>

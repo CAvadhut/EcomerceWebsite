@@ -1,17 +1,20 @@
 import { Outlet } from "react-router-dom";
 import Navbar from "../layout/navbar/Navbar";
 import Footer from "../footer/Footer";
-import { AppBar, Box, Toolbar } from "@mui/material";
+import { Box } from "@mui/material";
 
 const RootLayout = () => {
   return (
-    <Box>
-      <AppBar position="static">
-          <Navbar />
-      </AppBar>
-        <Outlet />
-      <Footer />
-    </Box>
+ <>
+ <Box sx={{ position: "fixed", width: "100%", top: 0, zIndex: 1000 }}>
+  <Navbar />
+</Box>
+<Box sx={{ marginTop: "80px" }}> {/* Adjust this based on your Navbar height */}
+  <Outlet />
+</Box>
+<Footer />
+
+ </>
   );
 };
 

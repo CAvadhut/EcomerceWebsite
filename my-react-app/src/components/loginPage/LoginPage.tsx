@@ -27,7 +27,7 @@ const LoginPage = () => {
         localStorage.setItem("token", JSON.stringify(res.data.access_token));
 
         console.log(res.data.access_token);
-        navigate("/PageHeading");
+        navigate("/page-heading");
       })
       .catch((err) => {
         console.log(err);
