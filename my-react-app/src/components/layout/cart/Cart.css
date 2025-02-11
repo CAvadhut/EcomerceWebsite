@@ -1,0 +1,17 @@
+.descriptionTypo {
+    display: inline-block;
+    white-space: normal;
+    font-size: 20px !important;
+    word-break: normal;
+    font-weight: 500;
+    font-style: normal;
+    color:black ;
+    cursor: pointer;
+    font-family:"Amazon Ember", Arial, sans-serif ;
+}
+.StockTypo{
+    color:#001676;
+    font-size: 12px;
+    line-height: 17px;
+    font-family:  Arial, sans-serif;
+};

@@ -45,10 +45,8 @@ const Navbar = () => {
   };
 
   const wishlistCount = 15;
-  const count = useAppSelector((s:RootState)=>s.ecartData)
-  console.log(count?.length,'count');
-  
-
+  const CartData = useAppSelector((s: RootState) => s.ecartData);
+  const WishlistData = useAppSelector((s: RootState) => s.ecartWishlist);
   return (
     <>
       <Box
@@ -56,21 +54,23 @@ const Navbar = () => {
           display: "flex",
           justifyContent: "space-between",
           bgcolor: "#e8e1e1",
-          width:'100%'
+          width: "100%",
         }}
       >
         {/* Left Side */}
-        <Box
-          sx={{ display: "flex", justifyContent: "start", width: "50%" }}
-        >
+        <Box sx={{ display: "flex", justifyContent: "start", width: "50%" }}>
           {/* Logo */}
           <Box
             component={"img"}
             src={ShopingLogo}
             height={60}
-            width={{sm:180,xl:200}}
-            // onClick={()=>navigate('/')}
-            sx={{width:{xs:'50px',sm:"20px",lg:"100px"},height:{xs:"50px",lg:"60px"},padding:'10px'}}
+            width={{ sm: 180, xl: 200 }}
+            sx={{
+              width: { xs: "50px", sm: "20px", lg: "100px" },
+              height: { xs: "50px", lg: "60px" },
+              padding: "10px",
+            }}
+            onClick={()=>navigate('./page-heading')}
             p={1}
           />
 
@@ -80,15 +80,12 @@ const Navbar = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              // p: 2,
-              // width:'800px',
-              minWidth:{xs:"180px",sm:'400px'}
+              minWidth: { xs: "180px", sm: "400px" },
             }}
           >
             <TextField
               fullWidth
               variant="outlined"
-              
               size="small"
               placeholder="Search for items..."
               InputProps={{
@@ -103,14 +100,13 @@ const Navbar = () => {
                       onChange={handleCategoryChange}
                       variant="standard"
                       size="small"
-                      
                       sx={{
-                        minWidth:{xs:"100px",sm:'200px'},
-                        width:'80px',
+                        minWidth: { xs: "100px", sm: "200px" },
+                        width: "80px",
                         border: "none",
-                        // "& .MuiSelect-select": { padding: 0 },
-                        "& .MuiInputBase-input": {fontSize:{xs:10,md:16} },
-                      
+                        "& .MuiInputBase-input": {
+                          fontSize: { xs: 10, md: 16 },
+                        },
                       }}
                     >
                       {categories.categories.map((category) => (
@@ -139,90 +135,89 @@ const Navbar = () => {
         </Box>
 
         {/* Right Side */}
-        <Box
-          sx={{ display: "flex", justifyContent: "end", width: "50%", }}
-        >
+        <Box sx={{ display: "flex", justifyContent: "end", width: "50%" }}>
           {/* Location Selector */}
-         <Box display={{xs:"none",lg:'flex'}}>
-         <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              p: 2,
-              minWidth: "200px",
-            }}
-          >
-            <TextField
-              select
-              value={selectedLocation}
-              onChange={handleLocationChange}
-              variant="outlined"
-              size="small"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <LocationOnIcon />
-                  </InputAdornment>
-                ),
-                disableUnderline: true,
+          <Box display={{ xs: "none", lg: "flex" }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                p: 2,
+                minWidth: "200px",
               }}
             >
-              {Yourlocations?.Yourlocations.map((location) => (
-                <MenuItem key={location.value} value={location.value}>
-                  {location.label}
-                </MenuItem>
-              ))}
-            </TextField>
-          </Box>
-
-          <Box p={1.5}>
-            <IconButton color="primary">
-              <Badge
-                badgeContent={wishlistCount}
-                color="error"
-                sx={{ fontSize: 30 }}
+              <TextField
+                select
+                value={selectedLocation}
+                onChange={handleLocationChange}
+                variant="outlined"
+                size="small"
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <LocationOnIcon />
+                    </InputAdornment>
+                  ),
+                  disableUnderline: true,
+                }}
               >
-                <RestartAltIcon sx={{ fontSize: 40 }} />
-              </Badge>
-              <Typography sx={{ color: "black" }}>Compare</Typography>
-            </IconButton>
-          </Box>
+                {Yourlocations?.Yourlocations.map((location) => (
+                  <MenuItem key={location.value} value={location.value}>
+                    {location.label}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Box>
 
-         
-          <Box p={1.5}>
-            <IconButton color="primary">
-              <Badge
-                badgeContent={wishlistCount}
-                color="error"
-                sx={{ fontSize: 30 }}
-              >
-                <FavoriteBorderIcon sx={{ fontSize: 40 }} />
-              </Badge>
-              <Typography sx={{ color: "black" }}>WishList</Typography>
-            </IconButton>
+            <Box p={1.5}>
+              <IconButton color="primary">
+                <Badge
+                  badgeContent={wishlistCount}
+                  color="error"
+                  sx={{ fontSize: 30 }}
+                >
+                  <RestartAltIcon sx={{ fontSize: 40 }} />
+                </Badge>
+                <Typography sx={{ color: "black" }}>Compare</Typography>
+              </IconButton>
+            </Box>
+            <Box p={1.5}>
+              <IconButton color="primary">
+                <Badge
+                  badgeContent={WishlistData?.length}
+                  color="error"
+                  sx={{ fontSize: 30 }}
+                >
+                  <FavoriteBorderIcon sx={{ fontSize: 40 }} />
+                </Badge>
+                <Typography sx={{ color: "black" }}>WishList</Typography>
+              </IconButton>
+            </Box>
+            <Box p={1.5}>
+              <IconButton color="primary" onClick={() => navigate("/cart")}>
+                <Badge
+                  badgeContent={CartData?.length}
+                  color="error"
+                  sx={{ fontSize: 30 }}
+                >
+                  <AddShoppingCartIcon sx={{ fontSize: 40 }} />
+                </Badge>
+                <Typography sx={{ color: "black" }}>Cart</Typography>
+              </IconButton>
+            </Box>
           </Box>
-
-   
-          <Box p={1.5}>
-            <IconButton color="primary" onClick={() => navigate("/cart")}>
-              <Badge
-                badgeContent={count?.length}
-                color="error"
-                sx={{ fontSize: 30 }}
-              >
-                <AddShoppingCartIcon sx={{ fontSize: 40 }}/>
-              </Badge>
-              <Typography sx={{ color: "black" }}>Cart</Typography>
-            </IconButton>
-          </Box>
-         </Box>
 
           {/* Account Button */}
-          <Box mt={1} justifyContent={'flex-end'}>
+          <Box mt={1} justifyContent={"flex-end"}>
             <IconButton color="primary" onClick={handleAccountClick}>
               <PermIdentityIcon sx={{ fontSize: 40 }} />
-              <Typography sx={{ color: "black",justifyContent:'flex-end' }} display={{xs:"none",md:'block'}}>Account</Typography>
+              <Typography
+                sx={{ color: "black", justifyContent: "flex-end" }}
+                display={{ xs: "none", md: "block" }}
+              >
+                Account
+              </Typography>
             </IconButton>
 
             {/* Account Dropdown Menu */}
@@ -232,7 +227,6 @@ const Navbar = () => {
               onClose={handleClose}
               anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
               transformOrigin={{ vertical: "top", horizontal: "right" }}
-              
             >
               {accountOptions.accountOptions.map((option) => (
                 <MenuItem

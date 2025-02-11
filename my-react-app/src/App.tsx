@@ -12,6 +12,7 @@ import PrivateRoute from "./components/privateRoute/PrivateRoute";
 import LoginPage from "./components/loginPage/LoginPage";
 import Cart from "./components/layout/cart/Cart";
 import PopularProduct from "./components/popularProduct/PopularProduct";
+import Footer from "./components/footer/Footer";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
             <Route path="/slider" element={<Slider />} />
             <Route path="/page-heading" element={<PageHeading />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/footer" element={<Footer />} />
             <Route path="/featured-categories" element={<FeaturedCategories />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/popular-product" element={<PopularProduct />} />

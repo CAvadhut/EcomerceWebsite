@@ -12,7 +12,7 @@ const RootLayout = () => {
 <Box sx={{ marginTop: "80px" }}> {/* Adjust this based on your Navbar height */}
   <Outlet />
 </Box>
-<Footer />
+{/* <Footer /> */}
 
  </>
   );
