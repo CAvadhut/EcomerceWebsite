@@ -47,6 +47,9 @@ const Navbar = () => {
   const wishlistCount = 15;
   const CartData = useAppSelector((s: RootState) => s.ecartData);
   const WishlistData = useAppSelector((s: RootState) => s.ecartWishlist);
+  console.log(CartData,'CartData');
+  console.log(WishlistData,'CartDataa');
+  
   return (
     <>
       <Box
@@ -182,7 +185,7 @@ const Navbar = () => {
                 <Typography sx={{ color: "black" }}>Compare</Typography>
               </IconButton>
             </Box>
-            <Box p={1.5}>
+            <Box p={1.5} onClick={()=>navigate("/Wishlist")}>
               <IconButton color="primary">
                 <Badge
                   badgeContent={WishlistData?.length}
@@ -197,7 +200,7 @@ const Navbar = () => {
             <Box p={1.5}>
               <IconButton color="primary" onClick={() => navigate("/cart")}>
                 <Badge
-                  badgeContent={CartData?.length}
+                  badgeContent= {CartData?.reduce((total, e) => total + e.quantity, 0)}
                   color="error"
                   sx={{ fontSize: 30 }}
                 >

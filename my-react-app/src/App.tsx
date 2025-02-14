@@ -13,6 +13,8 @@ import LoginPage from "./components/loginPage/LoginPage";
 import Cart from "./components/layout/cart/Cart";
 import PopularProduct from "./components/popularProduct/PopularProduct";
 import Footer from "./components/footer/Footer";
+import Payment from "./components/paymentMode/Payment";
+import Wishlist from "./components/layout/wishList/Wishlist";
 
 const App = () => {
   return (
@@ -30,7 +32,9 @@ const App = () => {
             <Route path="/footer" element={<Footer />} />
             <Route path="/featured-categories" element={<FeaturedCategories />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/popular-product" element={<PopularProduct />} />
+            <Route path="/payment" element={<Payment />} />
 
           </Route>
         </Route>

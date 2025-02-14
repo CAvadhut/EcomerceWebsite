@@ -5,8 +5,15 @@ import { Link } from "react-router-dom";
 import "../cart/Cart.css";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-// https://fakestoreapi.com/products
+import {
+  addToEcartData,
+  removeFromCart,
+} from "../../../redux/slices/counter/ecartDataReducer";
+import { useAppDispatch } from "../../../redux/hooks";
+import Payment from "../../paymentMode/Payment";
+import { useNavigate } from "react-router-dom";
 interface CartItem {
+  quantity: number;
   id: number;
   title: string;
   description: string;
@@ -18,13 +25,20 @@ interface CartItem {
 
 const Cart = () => {
   const CartData: CartItem[] = useAppSelector((s: RootState) => s.ecartData);
-
+  const dispatch = useAppDispatch();
   console.log(CartData, "dataaaa");
+  const navigate = useNavigate()
 
   const convertToINR = (priceInUSD) => {
     const exchangeRate = 83; // Example rate (can change)
     return (priceInUSD * exchangeRate).toFixed(2);
   };
+
+  let total = CartData?.reduce((previousValue, currentValue) => {
+    return previousValue + currentValue?.quantity * currentValue?.price;
+  }, 0);
+  console.log(convertToINR(total), "total");
+  console.log(CartData, "CartData");
 
   return (
     <>
@@ -82,10 +96,12 @@ const Cart = () => {
               </Box>
               {CartData?.map((e) => (
                 <Box
-                  textAlign={"center"}
                   display={"flex"}
                   gap={"20px"}
                   justifyContent={"space-between"}
+                  border={"1px solid black"}
+                  mt={2}
+                  p={1}
                 >
                   {/* 1st */}
                   <Box sx={{ textAlign: "left" }}>
@@ -133,11 +149,17 @@ const Cart = () => {
                         }}
                       >
                         <Button>
-                          <DeleteIcon sx={{ color: "black" }} />
+                          <DeleteIcon
+                            sx={{ color: "black" }}
+                            onClick={() => dispatch(removeFromCart(e))}
+                          />
                         </Button>
                         {e.quantity}
                         <Button>
-                          <AddIcon sx={{ color: "black" }} />
+                          <AddIcon
+                            sx={{ color: "black" }}
+                            onClick={() => dispatch(addToEcartData(e))}
+                          />
                         </Button>
                       </Box>
                       <Divider orientation="vertical" sx={{ color: "black" }} />
@@ -153,11 +175,25 @@ const Cart = () => {
                         fontWeight: 600,
                       }}
                     >
-                      ₹{convertToINR(e?.price)}
+                      {(convertToINR(e?.price) * e.quantity).toFixed(2)}
                     </Typography>
                   </Box>
                 </Box>
               ))}
+              <Divider />
+              <Typography
+                sx={{ fontSize: "30px", textAlign: "right", fontWeight: 600 }}
+              >
+                {" "}
+                SubTotal is ({CartData?.reduce((total, e) => total + e.quantity, 0)} Items): {convertToINR(total)}
+              </Typography>
+            <Box sx={{m:1,p:2,textAlign:'right'}}>
+              {/* <Typography sx={{fontFamily:'Amazon Ember", Arial, sans-serif',bgcolor:'#ffd814',borderColor:'#ffd814',fontSize:'14px',color:'black'}}> */}
+              <Button sx={{color:'black',bgcolor:'#ffd814',borderRadius:'20px',m:1,padding:'5px 50px 5px 50px',fontWeight:600}} onClick={()=>navigate('/payment')}>Proceed to Buy</Button>
+              {/* </Typography> */}
+            {/* <Payment/> */}
+
+            </Box>
             </>
           ) : (
             <>
