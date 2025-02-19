@@ -11,7 +11,7 @@ import {
 import PrivateRoute from "./components/privateRoute/PrivateRoute";
 import LoginPage from "./components/loginPage/LoginPage";
 import Cart from "./components/layout/cart/Cart";
-import PopularProduct from "./components/popularProduct/PopularProduct";
+import RecommendedProduct from "./components/recommendedProduct/RecommendedProduct";
 import Footer from "./components/footer/Footer";
 import Payment from "./components/paymentMode/Payment";
 import Wishlist from "./components/layout/wishList/Wishlist";
@@ -33,7 +33,7 @@ const App = () => {
             <Route path="/featured-categories" element={<FeaturedCategories />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/wishlist" element={<Wishlist />} />
-            <Route path="/popular-product" element={<PopularProduct />} />
+            <Route path="/recommendedProduct" element={<RecommendedProduct />} />
             <Route path="/payment" element={<Payment />} />
 
           </Route>

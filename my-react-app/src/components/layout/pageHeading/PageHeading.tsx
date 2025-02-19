@@ -15,6 +15,7 @@ import locationData from "../../menuData/MainMenuData";
 import pageheadingData from "../../menuData/MainMenuData";
 import Slider from "../../../pages/slider/Slider";
 import FeaturedCategories from "../../featuredCategories/FeaturedCategories";
+import RecommendedProduct from "../../recommendedProduct/RecommendedProduct";
 
 const PageHeading = () => {
   const [selectedLocation, setSelectedLocation] = useState("current");
@@ -143,6 +144,9 @@ const PageHeading = () => {
       </Box>
       <Box>
         <FeaturedCategories />
+      </Box>
+      <Box>
+        <RecommendedProduct />
       </Box>
     </>
   );

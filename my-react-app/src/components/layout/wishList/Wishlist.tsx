@@ -1,7 +1,10 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useAppSelector } from "../../../redux/hooks";
 import { RootState } from "../../../redux/store";
-import Rating from '@mui/material/Rating';
+import Rating from "@mui/material/Rating";
+import { useDispatch } from "react-redux";
+import { addToEcartData } from "../../../redux/slices/counter/ecartDataReducer";
+import { removeToWishlist } from "../../../redux/slices/counter/ecartWishlist";
 interface CartItem {
   quantity: number;
   id: number;
@@ -14,6 +17,7 @@ interface CartItem {
   returnPolicy: string;
 }
 const Wishlist = () => {
+  const dispatch = useDispatch();
   const wishlistData: CartItem[] = useAppSelector(
     (s: RootState) => s.ecartWishlist
   );
@@ -42,25 +46,42 @@ const Wishlist = () => {
                     sx={{ display: "flex", justifyContent: "space-between" }}
                   >
                     <Box>
-                    <img src={e.thumbnail} alt="" />
+                      <img src={e.thumbnail} alt="" />
                     </Box>
                     <Box sx={{ alignContent: "center" }}>
                       <Typography>{e.brand}</Typography>
                       <Typography>{e.title}</Typography>
                       <Typography>{e.returnPolicy}</Typography>
-                    
+
                       <Rating name="read-only" value={e.rating} readOnly />
                     </Box>
                   </Box>
                   <Box sx={{ alignContent: "center", textAlign: "right" }}>
                     <Typography>{convertToINR(e.price)}</Typography>
+                    <Button
+                      onClick={() => {
+                        dispatch(removeToWishlist(e.id));
+                        dispatch(addToEcartData(e));
+                      }}
+                    >
+                      Add to Cart
+                    </Button>
+                    <Button onClick={() => dispatch(removeToWishlist(e.id))}>
+                      Remove
+                    </Button>
                   </Box>
                 </Box>
               </>
             ))}
           </>
         ) : (
-          "hii"
+          <>
+            <Box sx={{ padding: "40px" }}>
+              <Typography sx={{ fontSize: "24px", textAlign: "center" }}>
+                Your wishlist is empty. Start adding your favorite items!
+              </Typography>
+            </Box>
+          </>
         )}
       </Box>
     </>

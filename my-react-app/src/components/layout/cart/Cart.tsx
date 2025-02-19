@@ -1,4 +1,4 @@
-import { Box, Button, Divider, Typography } from "@mui/material";
+import { Box, Button, Divider, Paper, Typography } from "@mui/material";
 import { RootState } from "../../../redux/store";
 import { useAppSelector } from "../../../redux/hooks";
 import { Link } from "react-router-dom";
@@ -12,6 +12,7 @@ import {
 import { useAppDispatch } from "../../../redux/hooks";
 import Payment from "../../paymentMode/Payment";
 import { useNavigate } from "react-router-dom";
+import Carousel from "react-material-ui-carousel";
 interface CartItem {
   quantity: number;
   id: number;
@@ -27,7 +28,7 @@ const Cart = () => {
   const CartData: CartItem[] = useAppSelector((s: RootState) => s.ecartData);
   const dispatch = useAppDispatch();
   console.log(CartData, "dataaaa");
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const convertToINR = (priceInUSD) => {
     const exchangeRate = 83; // Example rate (can change)
@@ -104,14 +105,19 @@ const Cart = () => {
                   p={1}
                 >
                   {/* 1st */}
-                  <Box sx={{ textAlign: "left" }}>
-                    <img
-                      src={e.images[0]}
-                      alt={e.title}
-                      width="200px"
-                      height="150px"
-                      style={{ objectFit: "cover", borderRadius: "10px" }}
-                    />
+                  <Box sx={{ textAlign: "left",width:'100%',height:'auto' }}>
+                        <Carousel
+              // autoPlay={autoPlay}
+              interval={2000}
+              animation="slide"
+              indicators={true}
+            >
+              {e?.images.map((item, idx) => (
+                <Paper key={idx} style={{ textAlign: "center", padding: "10px" }}>
+                  <img src={item} alt={`Product ${idx}`} style={{ width: "150px", height: "200px" }} />
+                </Paper>
+              ))}
+            </Carousel>
                   </Box>
                   {/* 2nd */}
                   <Box textAlign={"left"} width={"100%"}>
@@ -151,7 +157,7 @@ const Cart = () => {
                         <Button>
                           <DeleteIcon
                             sx={{ color: "black" }}
-                            onClick={() => dispatch(removeFromCart(e))}
+                            onClick={() => dispatch(removeFromCart(e.id))}
                           />
                         </Button>
                         {e.quantity}
@@ -185,15 +191,30 @@ const Cart = () => {
                 sx={{ fontSize: "30px", textAlign: "right", fontWeight: 600 }}
               >
                 {" "}
-                SubTotal is ({CartData?.reduce((total, e) => total + e.quantity, 0)} Items): {convertToINR(total)}
+                SubTotal is (
+                {CartData?.reduce(
+                  (total, e) => total + e.quantity,
+                  0
+                )} Items): {convertToINR(total)}
               </Typography>
-            <Box sx={{m:1,p:2,textAlign:'right'}}>
-              {/* <Typography sx={{fontFamily:'Amazon Ember", Arial, sans-serif',bgcolor:'#ffd814',borderColor:'#ffd814',fontSize:'14px',color:'black'}}> */}
-              <Button sx={{color:'black',bgcolor:'#ffd814',borderRadius:'20px',m:1,padding:'5px 50px 5px 50px',fontWeight:600}} onClick={()=>navigate('/payment')}>Proceed to Buy</Button>
-              {/* </Typography> */}
-            {/* <Payment/> */}
-
-            </Box>
+              <Box sx={{ m: 1, p: 2, textAlign: "right" }}>
+                {/* <Typography sx={{fontFamily:'Amazon Ember", Arial, sans-serif',bgcolor:'#ffd814',borderColor:'#ffd814',fontSize:'14px',color:'black'}}> */}
+                <Button
+                  sx={{
+                    color: "black",
+                    bgcolor: "#ffd814",
+                    borderRadius: "20px",
+                    m: 1,
+                    padding: "5px 50px 5px 50px",
+                    fontWeight: 600,
+                  }}
+                  onClick={() => navigate("/payment")}
+                >
+                  Proceed to Buy
+                </Button>
+                {/* </Typography> */}
+                {/* <Payment/> */}
+              </Box>
             </>
           ) : (
             <>

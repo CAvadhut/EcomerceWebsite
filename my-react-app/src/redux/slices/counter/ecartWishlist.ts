@@ -12,15 +12,22 @@ export const ecartWishlistSlice = createSlice({
         // removeToWishlist: (state, action) => {
         //     state.pop(action.payload);  
         // }
-        removeToWishlist: (state, action: PayloadAction<number>) => {
-            return state
-              .map((item) =>
-                item.id === action.payload
-                  ? { ...item, quantity: item.quantity - 1 }
-                  : item
-              )
-              .filter((item) => item.quantity > 0); // Removes item if quantity is 0
-          },
+        // removeToWishlist: (state, action: PayloadAction<number>) => {
+        //     return state
+        //       .map((item) =>
+        //         item.id === action.payload
+        //           ? { ...item, quantity: item.quantity }
+        //           : item
+        //       )
+        //       .filter((item) => item.quantity - 0); // Removes item if quantity is 0
+        //   },
+        removeToWishlist: (state, action) => {
+            const index = state.findIndex(item => item.id === action.payload);
+            if (index !== -1) {
+                state.splice(index, 1);
+            }
+        }
+        
     }
 });
 

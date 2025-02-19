@@ -38,7 +38,7 @@ const FeaturedCategories = () => {
     } catch (error) {
       console.error("Error fetching data:", error);
     }
-  };  
+  };
   useEffect(() => {
     getData();
   }, []);
@@ -56,7 +56,6 @@ const FeaturedCategories = () => {
         removeArrowOnDeviceType={["tablet", "mobile"]}
       >
         {dataShow.map((item) => (
-          
           <Box
             key={item.id}
             sx={{
@@ -69,19 +68,31 @@ const FeaturedCategories = () => {
             <Box
               textAlign="right"
               onClick={() =>
-                setIconChange((prev) => ({ ...prev, [item.id]: !prev[item.id] }))
+                setIconChange((prev) => ({
+                  ...prev,
+                  [item.id]: !prev[item.id],
+                }))
               }
               sx={{ cursor: "pointer" }}
             >
-              <Box >
-              {iconChange[item.id] ? (
-                <FavoriteIcon sx={{ fontSize: 40, color: "red" }}  onClick={() => dispatch(removeToWishlist(item))} />
-              ) : (
-                <FavoriteBorderIcon sx={{ fontSize: 40 }} onClick={() => dispatch(addToWishlist(item))} />
-              )}
+              <Box>
+                {iconChange[item.id] ? (
+                  <FavoriteIcon
+                    sx={{ fontSize: 40, color: "red" }}
+                    onClick={() => dispatch(removeToWishlist(item.id))}
+                  />
+                ) : (
+                  <FavoriteBorderIcon
+                    sx={{ fontSize: 40 }}
+                    onClick={() => dispatch(addToWishlist(item))}
+                  />
+                )}
               </Box>
             </Box>
-            <Box onClick={() => dispatch(addToEcartData(item))} sx={{ cursor: "pointer" }}>
+            <Box
+              onClick={() => dispatch(addToEcartData(item))}
+              sx={{ cursor: "pointer" }}
+            >
               <img
                 src={item.images[0]}
                 alt={item.title}
