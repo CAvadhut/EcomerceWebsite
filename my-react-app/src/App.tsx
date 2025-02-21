@@ -15,6 +15,7 @@ import RecommendedProduct from "./components/recommendedProduct/RecommendedProdu
 import Footer from "./components/footer/Footer";
 import Payment from "./components/paymentMode/Payment";
 import Wishlist from "./components/layout/wishList/Wishlist";
+import ProductDetails from "./components/productDetails/ProductDetails";
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/recommendedProduct" element={<RecommendedProduct />} />
             <Route path="/payment" element={<Payment />} />
+            <Route path="/productDetails" element={<ProductDetails />} />
 
           </Route>
         </Route>

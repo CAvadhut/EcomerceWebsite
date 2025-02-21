@@ -22,6 +22,8 @@
     "react-multi-carousel": "^2.8.5",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.5",
+    "react-search-autocomplete": "^8.5.2",
+    "react-suggest": "^0.0.1",
     "redux-persist": "^6.0.0"
   },
   "devDependencies": {
